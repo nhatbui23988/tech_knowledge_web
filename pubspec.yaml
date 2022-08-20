@@ -45,6 +45,10 @@ dependencies:
   # State manager + DI
   get: ^4.6.5
 
+  # Third party
+  firebase_core: ^1.19.2
+  firebase_auth: ^3.4.2
+
 
 dev_dependencies:
   flutter_test:

@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoute.homePagePath,
+      initialRoute: AppRoute.signUp,
       theme: ThemeData(primarySwatch: Colors.blueGrey, visualDensity: VisualDensity.adaptivePlatformDensity),
       home: const MyHomePage(),
       onGenerateRoute: AppRoute.onGenerateRoute,
