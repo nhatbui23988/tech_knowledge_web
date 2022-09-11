@@ -1,14 +1,16 @@
 import 'package:demo_web/app/config/route_config.dart';
 import 'package:demo_web/app/res/app_colors.dart';
+import 'package:demo_web/domain/entities/user_info.dart';
 import 'package:demo_web/presentations/screens/sign_up/sign_up_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SignUpPage extends GetView<SignUpController> {
-  SignUpPage();
+  const SignUpPage({Key? key}) : super(key: key);
 
-  static void showMe(BuildContext context) {
-    Navigator.pushNamed(context, AppRoute.signUp);
+  static Future<dynamic> showMe(BuildContext context) async {
+    final result = await Navigator.pushNamed(context, AppRoute.signUp);
+    return result;
   }
 
   @override
@@ -49,23 +51,25 @@ class SignUpPage extends GetView<SignUpController> {
               Row(
                 children: [
                   Expanded(
-                    child: Obx(()=>OutlinedButton(
-                      onPressed: controller.rxIsEnableBtn.value ? controller.onCreateAccount : null,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 16),
-                        child: Text(
-                          'Create your account',
-                          style: TextStyle(color: kSecondaryText),
-                        ),
-                      ),
-                      style: OutlinedButton.styleFrom(
-                          backgroundColor: controller.rxIsEnableBtn.value
-                              ? kOutlineBtnPrimary
-                              : Colors.black.withOpacity(0.1),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(32))),
-                    )),
+                    child: Obx(() => OutlinedButton(
+                          onPressed: controller.rxIsEnableBtn.value
+                              ? controller.onCreateAccount
+                              : null,
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 16),
+                            child: Text(
+                              'Create your account',
+                              style: TextStyle(color: kSecondaryText),
+                            ),
+                          ),
+                          style: OutlinedButton.styleFrom(
+                              backgroundColor: controller.rxIsEnableBtn.value
+                                  ? kOutlineBtnPrimary
+                                  : Colors.black.withOpacity(0.1),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(32))),
+                        )),
                   )
                 ],
               )

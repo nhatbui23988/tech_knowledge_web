@@ -1,13 +1,13 @@
 
 
 
-class UserInfo {
+class AppUserInfo {
   String? userId;
   String? name;
   String? email;
   String? phoneNumber;
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       'userId': userId,
       'name': name,
@@ -16,8 +16,8 @@ class UserInfo {
     };
   }
 
-  factory UserInfo.fromMap(Map<String, dynamic> map) {
-    return UserInfo(
+  factory AppUserInfo.fromJson(Map<String, dynamic> map) {
+    return AppUserInfo(
       userId: map['userId'] as String,
       name: map['name'] as String,
       email: map['email'] as String,
@@ -25,7 +25,7 @@ class UserInfo {
     );
   }
 
-  UserInfo({
+  AppUserInfo({
     this.userId,
     this.name,
     this.email,

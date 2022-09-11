@@ -1,5 +1,5 @@
 import 'package:demo_web/app/config/route_config.dart';
-import 'package:demo_web/presentations/screens/home_page.dart';
+import 'package:demo_web/presentations/screens/home/home_page.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatefulWidget {
@@ -21,8 +21,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoute.signUp,
-      theme: ThemeData(primarySwatch: Colors.blueGrey, visualDensity: VisualDensity.adaptivePlatformDensity),
+      initialRoute: AppRoute.homePage,
+      theme: ThemeData(fontFamily: 'Helvetica', primarySwatch: Colors.blueGrey, visualDensity: VisualDensity.adaptivePlatformDensity),
       home: const MyHomePage(),
       onGenerateRoute: AppRoute.onGenerateRoute,
     );

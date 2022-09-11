@@ -1,5 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:demo_web/presentations/screens/home_page.dart';
+import 'package:demo_web/presentations/screens/home/home_page.dart';
 import 'package:demo_web/res/app_images.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +13,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback(
+    WidgetsBinding.instance.addPostFrameCallback(
       (_) {
         if (mounted) _cacheImages();
       },
@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 100,),
+          const SizedBox(height: 100,),
           Expanded(
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -48,11 +48,11 @@ class _SplashScreenState extends State<SplashScreen> {
                 const SizedBox(width: 20.0, height: 100.0),
                 Stack(
                   children: [
-                    Text('OPTIMISTIC',
-                        style: const TextStyle(
-                            fontSize: 45.0,
-                            color: Colors.transparent,
-                            decoration: TextDecoration.none)),
+                    const Text('OPTIMISTIC',  style: TextStyle(
+                      fontSize: 45.0,
+                      fontFamily: 'Horizon',
+                      color: Colors.transparent
+                    )),
                     DefaultTextStyle(
                       style: const TextStyle(
                         fontSize: 45.0,
@@ -92,9 +92,9 @@ class _SplashScreenState extends State<SplashScreen> {
                   onTap: () {
                     MyHomePage.showMe(context);
                   },
-                  child: Text(
+                  child: const Text(
                     'Go to Home page',
-                    style: TextStyle(fontSize: 20, color: Colors.black),
+                    style: const TextStyle(fontSize: 20, color: Colors.black),
                   ),
                 )),
           )
