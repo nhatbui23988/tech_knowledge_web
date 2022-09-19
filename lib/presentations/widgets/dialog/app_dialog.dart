@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppDialog {
-  static Future showAppDialog(BuildContext context, Widget dialogWidget) async {
+  static Future<dynamic> showAppDialog(BuildContext context, Widget dialogWidget) async {
     final result = await showDialog(
         context: context,
         builder: (dialogContext) {

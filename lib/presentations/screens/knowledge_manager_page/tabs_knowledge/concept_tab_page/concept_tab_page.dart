@@ -48,13 +48,15 @@ class ConceptTabPage extends GetView<ConceptTabController> {
                         Text('${conceptEntity.nameConcept}',
                             style: kTitleRowStyle),
                         showEditIcon: true),
-                  ]);
+                  ], onLongPress: (){
+                    controller.onEditConcept(context, index, conceptEntity);
+                  });
                 }),
               )),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: controller.onAddConcept,
+        onPressed: ()=>controller.onAddConcept(context),
         child: const Icon(Icons.add),
       ),
     );

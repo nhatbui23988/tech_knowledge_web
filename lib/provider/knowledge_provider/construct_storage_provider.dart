@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:demo_web/domain/entities/knowledge/concept_entity.dart';
 import 'package:demo_web/domain/entities/knowledge/construct_entity.dart';
+import 'package:flutter/foundation.dart';
 
 class ConstructStorageProvider {
   final _firebaseStorage = FirebaseFirestore.instance;
@@ -21,7 +21,67 @@ class ConstructStorageProvider {
           listConstruct.add(element.data());
         }
       }
+      listConstruct
+          .sort((a, b) => (a.idConstruct ?? 0).compareTo((b.idConstruct ?? 0)));
       return listConstruct;
+    });
+  }
+
+  Future<bool> addNewConstruct(ConstructEntity constructEntity) async {
+    final constructsRef =
+        _firebaseStorage.collection('Construct').withConverter<ConstructEntity>(
+              fromFirestore: (snapshot, _) =>
+                  ConstructEntity.fromJson(snapshot.data()!),
+              toFirestore: (construct, _) => construct.toJson(),
+            );
+    return await constructsRef
+        .doc(constructEntity.idConstruct?.toString() ?? '0')
+        .set(constructEntity)
+        .then((value) => true)
+        .catchError((error) {
+      if (kDebugMode) {
+        print('add construct error: ${error.toString()}');
+      }
+      return false;
+    });
+  }
+
+  Future<bool> updateConstruct(ConstructEntity constructEntity) async {
+    final constructsRef =
+        _firebaseStorage.collection('Construct').withConverter<ConstructEntity>(
+              fromFirestore: (snapshot, _) =>
+                  ConstructEntity.fromJson(snapshot.data()!),
+              toFirestore: (construct, _) => construct.toJson(),
+            );
+
+    return await constructsRef
+        .doc(constructEntity.idConstruct?.toString() ?? '0')
+        .set(constructEntity)
+        .then((value) => true)
+        .catchError((error) {
+      if (kDebugMode) {
+        print('Update construct error: ${error.toString()}');
+      }
+      return false;
+    });
+  }
+
+  Future<bool> deleteConstruct(ConstructEntity constructEntity) async {
+    final constructsRef =
+        _firebaseStorage.collection('Construct').withConverter<ConstructEntity>(
+              fromFirestore: (snapshot, _) =>
+                  ConstructEntity.fromJson(snapshot.data()!),
+              toFirestore: (construct, _) => construct.toJson(),
+            );
+    return await constructsRef
+        .doc(constructEntity.idConstruct?.toString() ?? '0')
+        .delete()
+        .then((value) => true)
+        .catchError((error) {
+      if (kDebugMode) {
+        print('Update construct error: ${error.toString()}');
+      }
+      return false;
     });
   }
 }

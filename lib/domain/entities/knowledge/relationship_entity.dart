@@ -1,27 +1,24 @@
-class ConceptEntity {
-  int? idConcept;
-  int? idLesson;
-  String? linkConcept;
-  String? nameConcept;
+class RelationshipEntity {
+  int? idRelationship;
+  int? idLessonA;
+  int? idLessonB;
 
-  ConceptEntity(
-      {this.idConcept, this.idLesson, this.linkConcept, this.nameConcept});
+  RelationshipEntity(
+      {this.idRelationship, this.idLessonA , this.idLessonB });
 
-  factory ConceptEntity.fromJson(Map<String, dynamic> json) {
-    return ConceptEntity(
-      idConcept: json['idConcept'],
-      idLesson: json['idLesson'],
-      linkConcept: json['linkConcept'],
-      nameConcept: json['nameConcept'],
+  factory RelationshipEntity.fromJson(Map<String, dynamic> json) {
+    return RelationshipEntity(
+      idRelationship: json['idRelationship'],
+      idLessonA: json['idLessonA'],
+      idLessonB: json['idLessonB'],
     );
   }
 
   Map<String, dynamic> toJson(){
     Map<String,dynamic> json = {};
-    json['idConcept'] = idConcept;
-    json['idLesson'] = idLesson;
-    json['linkConcept'] = linkConcept;
-    json['nameConcept'] = nameConcept;
+    json['idRelationship'] = idRelationship;
+    json['idLessonA'] = idLessonA;
+    json['idLessonB'] = idLessonB;
     return json;
   }
 }

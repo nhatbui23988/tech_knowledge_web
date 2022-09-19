@@ -21,6 +21,9 @@ class LessonStorageProvider {
           listLesson.add(element.data());
         }
       }
+      if(listLesson.isNotEmpty) {
+        listLesson.sort((a, b) => (a.idLesson ?? 0).compareTo((b.idLesson ?? 0)));
+      }
       return listLesson;
     });
   }
@@ -33,7 +36,8 @@ class LessonStorageProvider {
               toFirestore: (lesson, _) => lesson.toJson(),
             );
     return await lessonsRef
-        .add(lessonEntity)
+        .doc(lessonEntity.idLesson?.toString() ?? '0')
+        .set(lessonEntity)
         .then((value) => true)
         .catchError((error) {
       if (kDebugMode) {
@@ -51,33 +55,35 @@ class LessonStorageProvider {
               toFirestore: (lesson, _) => lesson.toJson(),
             );
 
-    String? documentId = await lessonsRef
-        .where('idLesson', isEqualTo: lessonEntity.idLesson)
-        .get()
-        .then((snapshot) {
-      if (snapshot.docs.isNotEmpty) {
-        final doc = snapshot.docs.first;
-        return doc.id;
-      }
-      return null;
-    }).catchError((error) {
+    return await lessonsRef
+        .doc(lessonEntity.idLesson?.toString() ?? '0')
+        .set(lessonEntity)
+        .then((value) => true)
+        .catchError((error) {
       if (kDebugMode) {
-        print('concept not found error: ${error.toString()}');
+        print('Update lesson error: ${error.toString()}');
       }
-      return null;
+      return false;
     });
+  }
 
-    if (documentId != null) {
-      return await lessonsRef
-          .doc(documentId)
-          .set(lessonEntity)
-          .then((value) => true)
-          .catchError((error) {
-        if (kDebugMode) {
-          print('Update lesson error: ${error.toString()}');
-        }
-      });
-    }
-    return false;
+  Future<bool> deleteLesson(LessonEntity lessonEntity) async {
+    final lessonsRef =
+        _firebaseStorage.collection('Lesson').withConverter<LessonEntity>(
+              fromFirestore: (snapshot, _) =>
+                  LessonEntity.fromJson(snapshot.data()!),
+              toFirestore: (lesson, _) => lesson.toJson(),
+            );
+
+    return await lessonsRef
+        .doc(lessonEntity.idLesson?.toString() ?? '0')
+        .delete()
+        .then((value) => true)
+        .catchError((error) {
+      if (kDebugMode) {
+        print('Delete lesson error: ${error.toString()}');
+      }
+      return false;
+    });
   }
 }
