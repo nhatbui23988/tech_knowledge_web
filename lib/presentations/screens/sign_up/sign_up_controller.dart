@@ -1,16 +1,18 @@
 import 'package:demo_web/presentations/base/base_controller.dart';
+import 'package:demo_web/provider/auth_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class SignUpBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(SignUpController());
+    Get.put(SignUpController(Get.find()));
   }
 }
 
 class SignUpController extends BaseController {
-  final FirebaseAuth authProvider = FirebaseAuth.instance;
+  final AuthProvider authProvider;
+  SignUpController(this.authProvider);
   String? _email;
   String? _password;
   RxBool rxIsEnableBtn = RxBool(false);
@@ -36,13 +38,7 @@ class SignUpController extends BaseController {
         _password != null ||
         _password?.isNotEmpty == true) {
       try {
-        UserCredential userCredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-                email: _email!, password: _password!);
-        final user = userCredential.user;
-        if(user != null){
-          print('userCredential user ${user.email}');
-        }
+        await authProvider.doSignUpFirebase(_email!, _password!);
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           print('The password provided is too weak.');

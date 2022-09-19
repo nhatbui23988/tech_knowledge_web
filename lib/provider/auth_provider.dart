@@ -1,21 +1,24 @@
 
 
 
+import 'package:demo_web/domain/entities/user_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class AuthProvider{
-  final FirebaseAuth authProvider;
-  AuthProvider(this.authProvider);
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  void doLoginFirebase(String email, String password) async {
-    final userCredential = await authProvider.signInWithEmailAndPassword(email: email, password: password);
-
+  Future<AppUserInfo?> doLoginFirebase(String email, String password) async{
+    final userCredential= await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+    if(userCredential.user != null){
+      return AppUserInfo(email: userCredential.user?.email);
+    }
+    return null;
   }
 
-  void doSignUpFirebase(String email, String password) async{
+  Future doSignUpFirebase(String email, String password) async{
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
+      UserCredential userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(
           email: email, password: password);
       final user = userCredential.user;

@@ -3,21 +3,21 @@ import 'dart:convert';
 import 'package:demo_web/domain/entities/user_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class StorageProvider {
+abstract class LocalStorageProvider {
   AppUserInfo? getUserInfo();
 
   void setUserInfo(AppUserInfo? appUserInfo);
 }
 
-class StorageProviderImpl implements StorageProvider {
+class LocalStorageProviderImpl implements LocalStorageProvider {
   static const String USER_INFO_KEY = 'app_user_info';
 
   final SharedPreferences _sharedPreferences;
 
-  StorageProviderImpl._(this._sharedPreferences);
+  LocalStorageProviderImpl._(this._sharedPreferences);
 
-  static StorageProviderImpl init(SharedPreferences sharedPreferences) {
-    return StorageProviderImpl._(sharedPreferences);
+  static LocalStorageProviderImpl init(SharedPreferences sharedPreferences) {
+    return LocalStorageProviderImpl._(sharedPreferences);
   }
 
   @override

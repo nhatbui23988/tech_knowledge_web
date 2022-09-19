@@ -110,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 height: 20,
                               ),
                               const Text(
-                                'Search lesson about technology, definitions, operators, \nexample exercises to absorb knowledge more easily.',
+                                'Search lesson about technology, definitions, operators, \nexample exercises to absorb knowledge_provider more easily.',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 20, color: kSecondaryText),

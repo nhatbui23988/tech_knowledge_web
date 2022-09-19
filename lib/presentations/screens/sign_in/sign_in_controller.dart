@@ -1,5 +1,5 @@
-import 'package:demo_web/domain/auth_use_case.dart';
 import 'package:demo_web/presentations/base/base_controller.dart';
+import 'package:demo_web/provider/auth_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,15 +7,13 @@ import 'package:get/get.dart';
 class SignInBinding extends Bindings {
   @override
   void dependencies() {
-    final authUseCase =AuthUseCase();
-    // Get.put(authUseCase);
-    Get.put(SignInController(authUseCase));
+    Get.put(SignInController(Get.find()));
   }
 }
 
 class SignInController extends BaseController {
-  final AuthUseCase authUseCase;
-  SignInController(this.authUseCase);
+  final AuthProvider authProvider;
+  SignInController(this.authProvider);
   String? _email;
   String? _password;
   RxBool rxIsEnableBtn = RxBool(false);
@@ -43,7 +41,7 @@ class SignInController extends BaseController {
         _password?.isNotEmpty == true) {
       try {
         rxIsLoading.value = true;
-        final appUserInfo = await authUseCase.doLoginFirebase(_email!, _password!);
+        final appUserInfo = await authProvider.doLoginFirebase(_email!, _password!);
         if(appUserInfo != null){
           Navigator.of(context).pop(appUserInfo);
         }

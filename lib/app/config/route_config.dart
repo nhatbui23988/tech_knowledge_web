@@ -17,7 +17,7 @@ class AppRoute {
 
   static const String homePage = '/home';
   static const String splashPage = '/splash';
-  static const String addKnowledgePage = '/add-knowledge';
+  static const String addKnowledgePage = '/add-knowledge_provider';
   //
   static const String _auth = '/auth';
   static const String signUp = '$_auth/sign-up';
