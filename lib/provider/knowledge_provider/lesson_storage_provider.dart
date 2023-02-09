@@ -21,8 +21,9 @@ class LessonStorageProvider {
           listLesson.add(element.data());
         }
       }
-      if(listLesson.isNotEmpty) {
-        listLesson.sort((a, b) => (a.idLesson ?? 0).compareTo((b.idLesson ?? 0)));
+      if (listLesson.isNotEmpty) {
+        listLesson
+            .sort((a, b) => (a.idLesson ?? 0).compareTo((b.idLesson ?? 0)));
       }
       return listLesson;
     });
@@ -84,6 +85,37 @@ class LessonStorageProvider {
         print('Delete lesson error: ${error.toString()}');
       }
       return false;
+    });
+  }
+
+  Future<List<LessonEntity>> searchLesson(String searchKey) async {
+    return await _firebaseStorage
+        .collection('Lesson')
+        .withConverter<LessonEntity>(
+          fromFirestore: (snapshot, _) =>
+              LessonEntity.fromJson(snapshot.data()!),
+          toFirestore: (lesson, _) => lesson.toJson(),
+        )
+        .get()
+        .then((QuerySnapshot<LessonEntity> querySnapshot) {
+      final List<LessonEntity> listLesson = [];
+      for (var element in querySnapshot.docs) {
+        if (element.exists) {
+          if (element
+                  .data()
+                  .nameLesson
+                  ?.toLowerCase()
+                  .contains(searchKey.toLowerCase()) ??
+              false) {
+            listLesson.add(element.data());
+          }
+        }
+      }
+      if (listLesson.isNotEmpty) {
+        listLesson
+            .sort((a, b) => (a.idLesson ?? 0).compareTo((b.idLesson ?? 0)));
+      }
+      return listLesson;
     });
   }
 }
