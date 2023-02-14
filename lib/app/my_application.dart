@@ -1,5 +1,4 @@
 import 'package:demo_web/app/config/route_config.dart';
-import 'package:demo_web/presentations/screens/home/home_page.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatefulWidget {
@@ -10,24 +9,24 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
-  void initState()  {
+  void initState() {
     super.initState();
   }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: AppRoute.homePage,
-      theme: ThemeData(fontFamily: 'Helvetica', primarySwatch: Colors.blueGrey, visualDensity: VisualDensity.adaptivePlatformDensity),
-      home: const MyHomePage(),
+      theme: ThemeData(
+          fontFamily: 'Helvetica',
+          primarySwatch: Colors.blueGrey,
+          visualDensity: VisualDensity.adaptivePlatformDensity),
+      // home: const MyHomePage(),
       onGenerateRoute: AppRoute.onGenerateRoute,
+      // routes: AppRoute.appRoute(context),
     );
   }
 }
-
-
-

@@ -46,9 +46,9 @@ dependencies:
   get: ^4.6.5
 
   # Third party
-  firebase_core: ^1.19.2
-  firebase_auth: ^3.4.2
-  cloud_firestore: ^3.4.6
+  firebase_core: ^2.5.0
+  firebase_auth: ^4.2.6
+  cloud_firestore: ^4.3.2
 
 
 dev_dependencies:
