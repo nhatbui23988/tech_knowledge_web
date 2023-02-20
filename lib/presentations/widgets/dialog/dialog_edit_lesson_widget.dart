@@ -32,6 +32,7 @@ class _EditLessonDialogWidgetState extends State<EditLessonDialogWidget> {
   bool isInitialized = false;
   final TextEditingController _lessonKeyController = TextEditingController();
   final TextEditingController _lessonNameController = TextEditingController();
+  final TextEditingController _lessonDataController = TextEditingController();
 
   @override
   void initState() {
@@ -61,6 +62,13 @@ class _EditLessonDialogWidgetState extends State<EditLessonDialogWidget> {
                   controller: _lessonNameController, style: kTitleRowStyle)),
             ])
           ],
+        ),
+        const SizedBox(height: 24),
+        Text('Lesson content'),
+        const SizedBox(height: 12),
+        TextField(
+          controller: _lessonDataController,
+          maxLines: 10,
         ),
         const SizedBox(height: 24),
         _storageAction == StorageAction.edit
@@ -104,7 +112,8 @@ class _EditLessonDialogWidgetState extends State<EditLessonDialogWidget> {
     final LessonEntity editedLesson = LessonEntity(
         idLesson: _lessonEntity?.idLesson,
         keyLesson: _lessonKeyController.text,
-        nameLesson: _lessonNameController.text);
+        nameLesson: _lessonNameController.text,
+        data: [_lessonDataController.text]);
     final result = await _lessonStorageProvider.updateLesson(editedLesson);
     if (result) {
       AppSnackBar.showCommonSnackBar(context,
@@ -120,6 +129,7 @@ class _EditLessonDialogWidgetState extends State<EditLessonDialogWidget> {
     if (_lessonEntity != null) {
       _lessonEntity?.keyLesson = _lessonKeyController.text;
       _lessonEntity?.nameLesson = _lessonNameController.text;
+      _lessonEntity?.data = [_lessonDataController.text];
       final result = await _lessonStorageProvider.addNewLesson(_lessonEntity!);
       if (result) {
         AppSnackBar.showCommonSnackBar(context,

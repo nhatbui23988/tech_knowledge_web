@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoute.homePage,
+      initialRoute: '/',
       theme: ThemeData(
           fontFamily: 'Helvetica',
           primarySwatch: Colors.blueGrey,

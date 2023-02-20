@@ -8,6 +8,7 @@ import 'package:demo_web/presentations/screens/sign_in/sign_in_page.dart';
 import 'package:demo_web/presentations/screens/sign_up/sign_up_controller.dart';
 import 'package:demo_web/presentations/screens/sign_up/sign_up_page.dart';
 import 'package:demo_web/presentations/screens/splash_screen.dart';
+import 'package:demo_web/provider/local_storage_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -37,19 +38,16 @@ class AppRoute {
     String routeName = routeSettings.name ?? '';
 
     if (routeName.contains(splashPage)) {
-      return MaterialPageRoute(
-          settings: const RouteSettings(name: splashPage),
-          builder: (_) => const SplashScreen());
+      return MaterialPageRoute(builder: (_) => const SplashScreen());
     }
 
     if (routeName.contains(homePage)) {
-      return MaterialPageRoute(
-          settings: const RouteSettings(name: homePage),
-          builder: (_) => const MyHomePage());
+      LocalStorageProviderImpl().setCurrentRoute(homePage);
+      return MaterialPageRoute(builder: (_) => const MyHomePage());
     }
     if (routeName.contains(addKnowledgePage)) {
+      LocalStorageProviderImpl().setCurrentRoute(addKnowledgePage);
       return GetPageRoute(
-          settings: const RouteSettings(name: addKnowledgePage),
           page: () => const KnowledgeManagerPage(),
           binding: AddKnowledgeBinding());
     }
@@ -57,22 +55,17 @@ class AppRoute {
     if (routeName.contains(_auth)) {
       if (routeName.contains(signUp)) {
         return GetPageRoute(
-            settings: const RouteSettings(name: signUp),
-            page: () => const SignUpPage(),
-            binding: SignUpBinding());
+            page: () => const SignUpPage(), binding: SignUpBinding());
       }
 
       if (routeName.contains(signIn)) {
         return GetPageRoute(
-            settings: const RouteSettings(name: signIn),
-            page: () => const SignInPage(),
-            binding: SignInBinding());
+            page: () => const SignInPage(), binding: SignInBinding());
       }
     }
 
     if (routeName.contains(lessonViewPage)) {
       return MaterialPageRoute(
-          settings: const RouteSettings(name: lessonViewPage),
           builder: (_) => LessonViewPage(
                 lesson: routeSettings.arguments as LessonEntity,
               ));
@@ -82,4 +75,24 @@ class AppRoute {
         settings: const RouteSettings(name: homePage),
         builder: (_) => const MyHomePage());
   }
+
+  // static Map<String, Widget Function(BuildContext)> appRoute(
+  //     BuildContext context) {
+  //   Map<String, Widget Function(BuildContext)> map = {};
+  //   map.addEntries(toRoute(homePage, const MyHomePage()).entries);
+  //   map.addEntries(toRoute(lessonViewPage, const LessonViewPage()).entries);
+  //   return map;
+  // }
+
+  // static Map<String, Widget Function(BuildContext)> toRoute(
+  //     String route, Widget page,
+  //     {VoidCallback? excute}) {
+  //   if (excute != null) {
+  //     excute();
+  //   }
+  //   LocalStorageProviderImpl().setCurrentRoute(route);
+  //   return {
+  //     route: (context) => page,
+  //   };
+  // }
 }

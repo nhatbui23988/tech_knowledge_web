@@ -47,7 +47,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ? Colors.white
             : Colors.black,
         body: NestedScrollView(
-          physics: const BouncingScrollPhysics(),
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               const SliverAppBar(
@@ -231,7 +230,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return InkWell(
       onTap: () {
         //view lesson
-        Navigator.pushNamed(context, AppRoute.lessonViewPage,
+        Navigator.pushReplacementNamed(context, AppRoute.lessonViewPage,
             arguments: lesson);
       },
       child: Container(

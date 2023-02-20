@@ -118,4 +118,25 @@ class LessonStorageProvider {
       return listLesson;
     });
   }
+
+  Future<LessonEntity> getLessonById(int id) async {
+    return await _firebaseStorage
+        .collection('Lesson').where('idLesson',isEqualTo: id)
+        .withConverter<LessonEntity>(
+          fromFirestore: (snapshot, _) =>
+              LessonEntity.fromJson(snapshot.data()!),
+          toFirestore: (lesson, _) => lesson.toJson(),
+        )
+        .get()
+        .then((QuerySnapshot<LessonEntity> querySnapshot) {
+      final List<LessonEntity> listLesson = [];
+      for (var element in querySnapshot.docs) {
+        if (element.exists) {
+          listLesson.add(element.data());
+        }
+      }
+      
+      return listLesson.first;
+    });
+  }
 }

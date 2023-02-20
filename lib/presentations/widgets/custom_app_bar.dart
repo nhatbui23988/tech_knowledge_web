@@ -198,6 +198,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
   }
 
   void _goToDestinationPage(BuildContext context, String routeName) {
-    Navigator.pushNamed(context, routeName);
+    Navigator.pushReplacementNamed(context, routeName);
   }
 }
