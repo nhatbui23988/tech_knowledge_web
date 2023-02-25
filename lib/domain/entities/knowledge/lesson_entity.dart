@@ -2,6 +2,8 @@ class LessonEntity {
   int? idLesson;
   String? keyLesson;
   String? nameLesson;
+
+  //data này là content của lesson lưu theo dạng list
   List? data;
 
   LessonEntity({this.idLesson, this.keyLesson, this.nameLesson, this.data});

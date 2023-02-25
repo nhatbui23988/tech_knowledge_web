@@ -64,7 +64,7 @@ class _EditLessonDialogWidgetState extends State<EditLessonDialogWidget> {
           ],
         ),
         const SizedBox(height: 24),
-        Text('Lesson content'),
+        const Text('Lesson content'),
         const SizedBox(height: 12),
         TextField(
           controller: _lessonDataController,

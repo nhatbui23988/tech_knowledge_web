@@ -5,6 +5,7 @@ import 'package:demo_web/domain/entities/knowledge/lesson_entity.dart';
 import 'package:demo_web/presentations/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
+//TODO chỗ này là màn hình view lesson
 class LessonViewPage extends StatefulWidget {
   const LessonViewPage({Key? key, this.lesson}) : super(key: key);
   final LessonEntity? lesson;

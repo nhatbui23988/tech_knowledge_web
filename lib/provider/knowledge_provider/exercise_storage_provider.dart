@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo_web/domain/entities/knowledge/exercise_entity.dart';
-import 'package:demo_web/domain/entities/knowledge/exercise_entity.dart';
 import 'package:flutter/foundation.dart';
 
 class ExerciseStorageProvider {

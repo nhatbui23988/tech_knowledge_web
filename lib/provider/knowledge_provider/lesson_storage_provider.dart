@@ -88,6 +88,7 @@ class LessonStorageProvider {
     });
   }
 
+  //Này là function search lesson
   Future<List<LessonEntity>> searchLesson(String searchKey) async {
     return await _firebaseStorage
         .collection('Lesson')
@@ -119,9 +120,11 @@ class LessonStorageProvider {
     });
   }
 
+  //Get lesson by ID
   Future<LessonEntity> getLessonById(int id) async {
     return await _firebaseStorage
-        .collection('Lesson').where('idLesson',isEqualTo: id)
+        .collection('Lesson')
+        .where('idLesson', isEqualTo: id)
         .withConverter<LessonEntity>(
           fromFirestore: (snapshot, _) =>
               LessonEntity.fromJson(snapshot.data()!),
@@ -135,7 +138,7 @@ class LessonStorageProvider {
           listLesson.add(element.data());
         }
       }
-      
+
       return listLesson.first;
     });
   }
